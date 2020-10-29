@@ -1,0 +1,49 @@
+/* CSS color pallet from https://coolors.co/022b3a-1f7a8c-bfdbf7-e1e5f2-ffffff */
+:root {
+    --dark: #022b3aff;
+    --dark-med: #1f7a8cff;
+    --med: #bfdbf7ff;
+    --med-light: #e1e5f2ff;
+    --light: #ffffffff;
+}
+
+body {
+    background-color:var(--med);
+}
+
+.App {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.main-card {
+    border: 1px solid var(--dark);
+    background-color: var(--med-light);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 50%;
+    box-shadow: 0 10px 20px var(--dark), 0 6px 6px var(--dark);
+    word-wrap: break-word;
+}
+
+.btn {
+    background-color: var(--dark-med);
+    color: var(--light);
+    border: 1px solid var(--dark);
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.btn-center {
+    margin: 0 auto;
+    display: block;
+}
+
+.center-text {
+    text-align: center;
+}
