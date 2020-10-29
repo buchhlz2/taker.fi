@@ -89,7 +89,9 @@ const Walletscreen = (props) => {
           </button>
         ) : null}
       </div>
-      <div>{address ? <p>{address}</p> : null}</div>
+      <div>
+        {address ? (<p><b>Address:</b> {address}</p>) : null}
+      </div>
       <div>
         {address ? (
           <div>
@@ -101,7 +103,7 @@ const Walletscreen = (props) => {
               Get Balance
             </button>
             <div>
-              {balance.length !== 0 ? <ul>{balanceItems} ETH</ul> : null}              
+              {balance.length !== 0 ? <ul>{balanceItems} ETH</ul> : null}
             </div>
           </div>
         ) : null}
