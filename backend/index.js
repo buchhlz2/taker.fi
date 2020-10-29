@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require('axios');
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
@@ -9,34 +10,34 @@ const PORT = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Fake data for frontend rendering purposes
-// TO DO: create real backend service and/or live price feed via API
-const sampleData = {
-  coins: [
-    {
-      id: 1,
-      ticker: "BTC",
-      date: "2020-09-30T17:30:31.098Z",
-      price: 13000
-    },
-    {
-      id: 2,
-      ticker: "ETH",
-      date: "2020-09-30T18:39:34.091Z",
-      price: 400
-    },
-    {
-      id: 3,
-      ticker: "LINK",
-      date: "2020-09-30T19:20:14.298Z",
-      price: 12
-    },
-  ],
-};
-
+// GETs top 100 coins by market cap from CoinGecko API
+// API documentation here: https://www.coingecko.com/api/documentations/v3#/coins/get_coins_markets
 app.get("/api/coins", (req, res) => {
-  console.log("Backend service running");
-  res.json({ data: sampleData });
+  const CoinGeckoBaseURL = "https://api.coingecko.com/api/v3";
+  const path = "/coins/markets";
+  const query = {
+    vs_currency: "usd",
+    page: 1
+  };
+  async function fetchCoins() {
+    try {
+      const response = await axios.get(
+        `${CoinGeckoBaseURL}${path}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          params: query
+        }
+      );
+      const coinData = await response.data;
+      res.json({ coins: coinData });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  fetchCoins();
 });
 
 app.listen(PORT, () => {
