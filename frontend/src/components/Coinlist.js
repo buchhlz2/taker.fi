@@ -12,8 +12,7 @@ const Coinlist = (props) => {
     async function fetchCoins() {
       try {
         const response = await axios.get("/api/coins");
-        const data = await response.data.data.coins;
-
+        const data = await response.data.coins;
         setCoins(data);
       } catch (err) {
         console.log(err);
@@ -23,8 +22,8 @@ const Coinlist = (props) => {
   }, []);
 
   let coinsList = coins.map((coin) => (
-    <li key={coin.id}>
-      {coin.ticker}: {coin.price} USD
+    <li key={coin.market_cap_rank}>
+      {coin.symbol.toUpperCase()}: {coin.current_price} USD
     </li>
   ));
 
