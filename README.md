@@ -1,4 +1,7 @@
-# A desktop clone with a web-focused twist
+# Taker.fi -- DeFi Blockchain Dapp
+### Track browser wallet, assets, & top coins in a simple UI
+
+## CAUTION: BETA ONLY -- USE AT OWN RISK
 
 ## Available Scripts
 
