@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 
-// Walletscreen displays various info about the wallet (read-only), such as address & balances
-const Walletscreen = (props) => {
-  const [address, setAddress] = useState(null);
-  const [balance, setBalance] = useState([]);
+// ConnectWallet displays various info about the wallet (read-only), such as address & balances
+const ConnectWallet = ({ addressState, addressStateSetter }) => {
   const [walletIsConnected, setWalletIsConnected] = useState(false);
 
   // Global variables -- refactor
@@ -20,7 +18,7 @@ const Walletscreen = (props) => {
         // Request account access if needed
         const accounts = await ethereum.send("eth_requestAccounts");
         // Acccounts now exposed; update state
-        setAddress(accounts.result[0]);
+        addressStateSetter(accounts.result[0]);
         setWalletIsConnected(true);
       } catch (error) {
         console.log(error);
@@ -46,22 +44,11 @@ const Walletscreen = (props) => {
 
     getAddresses((result) => {
       if (result.length !== 0) {
-        setAddress(result[0]);
+        addressStateSetter(result[0]);
         setWalletIsConnected(true);
       }
     });
-  }, [ethereum, web3]);
-
-  // Get the balances of the address
-  // TO DO: only support ETH; must get ERC balances
-  const handleClickGetWalletBalance = async (e) => {
-    e.preventDefault();
-    await web3.eth.getBalance(address, (error, wei) => {
-      if (!error) {
-        setBalance(web3.utils.fromWei(wei, "ether"));
-      }
-    });
-  };
+  }, [ethereum, web3, addressStateSetter, addressState]);
 
   // Handle wallet connect on click -- e.g., prompts Metamask authorization
   const handleClickConnectWallet = async (e) => {
@@ -69,15 +56,11 @@ const Walletscreen = (props) => {
     connectEthBrowserWallet();
   };
 
-  // TO DO: once ERC balances are captured (instead of only ETH), to `map` the balances to `<li>`
-  let balanceItems = balance;
-
   // Wallet `Connect Wallet` button displayed -- if already authorized, then it disappears
   // `Get Balances` button gets the wallet's balance upon click
   // TO DO: update balance upon mount; must refactor due to async issues if click not used
   return (
     <div className="main-card">
-      <h3 className="center-text">WALLET</h3>
       <div>
         {!walletIsConnected ? (
           <button
@@ -87,29 +70,10 @@ const Walletscreen = (props) => {
           >
             Connect Wallet
           </button>
-        ) : null}
-      </div>
-      <div>
-        {address ? (<p><b>Address:</b> {address}</p>) : null}
-      </div>
-      <div>
-        {address ? (
-          <div>
-            <button
-              id="balanceButton"
-              className="btn btn-center"
-              onClick={handleClickGetWalletBalance}
-            >
-              Get Balance
-            </button>
-            <div>
-              {balance.length !== 0 ? <ul>{balanceItems} ETH</ul> : null}
-            </div>
-          </div>
-        ) : null}
+        ) : <p>Wallet connected.</p>}
       </div>
     </div>
   );
 };
 
-export default Walletscreen;
+export default ConnectWallet;

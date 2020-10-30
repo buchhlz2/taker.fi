@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Coinlist from "./Coinlist";
-import Walletscreen from "./Walletscreen";
-import Nav from "./Nav";
+import ConnectWallet from "./ConnectWallet";
+import WalletAddress from "./WalletAddress";
 
-const Homescreen = () => {
-    return (
-      <div>
-        <Nav />
-        <Walletscreen />
-        <Coinlist />
-      </div>
-    );
-}
+const Homescreen = ({ addressState, addressStateSetter }) => {
+  return (
+    <div>
+      <WalletAddress
+        addressState={addressState}
+      />
+      <ConnectWallet
+        addressState={addressState}
+        addressStateSetter={addressStateSetter}
+      />
+    </div>
+  );
+};
 
 export default Homescreen;
