@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="App">
       <Homescreen />
+      <footer className="footer"></footer>
     </div>
   );
 }

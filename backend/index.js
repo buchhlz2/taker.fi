@@ -19,15 +19,16 @@ app.get("/api/coins", (req, res) => {
     vs_currency: "usd",
     page: 1
   };
+  const header = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
   async function fetchCoins() {
     try {
       const response = await axios.get(
         `${CoinGeckoBaseURL}${path}`,
         {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
+          headers: header,
           params: query
         }
       );
