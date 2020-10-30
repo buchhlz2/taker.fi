@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const axios = require('axios');
 require("dotenv").config();
 
@@ -9,6 +10,11 @@ const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
 
 // GETs top 100 coins by market cap from CoinGecko API
 // API documentation here: https://www.coingecko.com/api/documentations/v3#/coins/get_coins_markets
