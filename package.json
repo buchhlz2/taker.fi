@@ -4,7 +4,7 @@
   "description": "",
   "main": "backend/index.js",
   "scripts": {
-    "start": "node backend/index.js",
+    "start": "NODE_ENV=production node backend/index.js",
     "postinstall": "(cd backend && npm install) && (cd frontend && npm install) && (cd frontend && npm run build)",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
   },

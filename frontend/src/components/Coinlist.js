@@ -21,11 +21,14 @@ const Coinlist = (props) => {
     fetchCoins();
   }, []);
 
-  let coinsList = coins.map((coin) => (
-    <li key={coin.market_cap_rank}>
-      {coin.symbol.toUpperCase()}: {coin.current_price} USD
-    </li>
-  ));
+  let coinsList =
+    coins === undefined
+      ? "No data available."
+      : coins.map((coin) => (
+          <li key={coin.market_cap_rank}>
+            {coin.symbol.toUpperCase()}: {coin.current_price} USD
+          </li>
+        ));
 
   return (
     <div className="main-card">

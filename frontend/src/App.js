@@ -5,6 +5,7 @@ import Homescreen from './components/Homescreen';
 import Coinlist from "./components/Coinlist";
 import Balance from "./components/Balance";
 import Nav from "./components/Nav";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [addressState, setAddressState] = useState(null);
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/coinlist">
           <Coinlist />
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
       <footer className="footer"></footer>
