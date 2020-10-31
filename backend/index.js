@@ -1,18 +1,37 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-const axios = require('axios');
-const helmet = require('helmet');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const path = require("path");
+const axios = require("axios");
+const helmet = require("helmet");
+const crypto = require("crypto");
 require("dotenv").config();
 
+const app = express();
 const PORT = process.env.PORT || 8080;
 const ENV = process.env.NODE_ENV || "development";
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+// TO DO: Update XSS policies
+/* Addtional XSS security for wallets
+app.use((req, res, next) => {
+  res.locals.cspNonce = crypto.randomBytes(16).toString("hex");
+  next();
+});
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`],
+    },
+  })
+); */
 
 // GETs top 100 coins by market cap from CoinGecko API
 // API documentation here: https://www.coingecko.com/api/documentations/v3#/coins/get_coins_markets
