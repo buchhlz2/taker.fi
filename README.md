@@ -1,9 +1,11 @@
 # Taker.fi -- DeFi Blockchain Dapp
 ### Track browser wallet, assets, & top coins in a simple UI
+Connect wallet (using Metamask to Ropsten testnet), view ETH balance, and then view a live API to CoinGecko API price feed.
 
 ## CAUTION: BETA ONLY -- USE AT OWN RISK
 
 Application demo on Ropsten testnet available [here](https://mighty-dawn-52333.herokuapp.com/)
+![](demo/taker_demo.gif)
 
 ## Available Scripts
 
